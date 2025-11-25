@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import Navbar from '../components/Navbar';
 import { useLocationContext } from "../contexts/LocationContext";
 
 const Report = () => {
@@ -33,7 +32,7 @@ const Report = () => {
         };
 
         try {
-            const res = await fetch("https://gaon-connect-bfb.onrender.com/api/report", {
+            const res = await fetch("http://localhost:5000/api/report", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -63,7 +62,6 @@ const Report = () => {
 
     return (
         <>
-            <Navbar />
             <div className="max-w-md mx-auto my-6 p-5 rounded-2xl shadow-lg border border-gray-300">
 
                 {/* Header */}

@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import Navbar from "../components/Navbar";
 
 import {
   MapContainer,
@@ -12,7 +11,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 
-const API_URL = "https://gaon-connect-bfb.onrender.com/api/report";
+const API_URL = "http://localhost:5000/api/report";
 
 // Status pipeline
 const STATUSES = ["Received", "Assigned", "In Progress", "Resolved", "Reopened"];
@@ -220,47 +219,45 @@ export default function ComplaintTracker() {
   /* --------------------------- UI --------------------------- */
   return (
     <>
-      <Navbar />
+      <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border border-text">
 
-      <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border">
-
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 text-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-text text-center">
           Civic Complaints & Tracking
         </h2>
 
-        <p className="text-xs text-gray-500 text-center mt-1">
+        <p className="text-xs text-text/80 text-center mt-1">
           Live map, heatmap & transparent issue tracking.
         </p>
 
         {/* ------------------ MAP + HEATMAP ------------------ */}
-        <h3 className="text-lg font-bold mt-6 mb-2 text-gray-800">Issue Heatmap</h3>
+        <h3 className="text-lg font-bold mt-6 mb-2 text-text">Issue Heatmap</h3>
 
-        <div className="w-full h-72 sm:h-96 mb-6 rounded-xl overflow-hidden border shadow">
+        <div className="w-full h-72 sm:h-96 mb-6 rounded-xl overflow-hidden border border-text shadow">
           <MapView complaints={list} />
         </div>
 
         {/* --------------------- TRACK COMPLAINT --------------------- */}
-        <div className="mt-6 bg-white border rounded-xl p-4">
-          <p className="text-sm font-semibold text-gray-800">Track complaint by Report ID</p>
+        <div className="mt-6 bg-bg border rounded-xl p-4">
+          <p className="text-sm font-semibold text-text">Track complaint by Report ID</p>
 
           <div className="flex gap-2 mt-2 flex-col sm:flex-row">
             <input
               placeholder="Enter Report ID"
-              className="flex-1 p-3 border rounded-lg bg-gray-50"
+              className="flex-1 p-3 border rounded-lg bg-text/90 text-bg"
               value={trackId}
               onChange={(e) => setTrackId(e.target.value)}
             />
 
             <button
               onClick={findTicket}
-              className="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 text-text px-4 py-3 rounded-lg hover:bg-blue-700"
             >
               Track
             </button>
           </div>
 
           {tracked && (
-            <div className="mt-3 p-3 border rounded-lg bg-gray-50">
+            <div className="mt-3 p-3 border rounded-lg bg-text-50">
               {tracked.notFound ? (
                 <p className="text-sm text-red-600">
                   No complaint found for ID: {tracked.id}
@@ -286,13 +283,13 @@ export default function ComplaintTracker() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <input
             placeholder="Search by ID / name / phone / location / issue"
-            className="flex-1 p-3 border rounded-lg bg-gray-50"
+            className="flex-1 p-3 border rounded-lg bg-text/90 text-bg"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
 
           <select
-            className="p-3 border rounded-lg bg-white"
+            className="p-3 border rounded-lg text-text bg-bg"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
           >
@@ -304,7 +301,7 @@ export default function ComplaintTracker() {
         </div>
 
         {/* --------------------- COMPLAINT LIST --------------------- */}
-        <h3 className="text-lg font-bold mt-5 mb-2 text-gray-800">
+        <h3 className="text-lg font-bold mt-5 mb-2 text-text">
           Recent Complaints
         </h3>
 
@@ -315,15 +312,15 @@ export default function ComplaintTracker() {
             filtered.map((c) => (
               <div
                 key={c._id}
-                className="p-4 bg-white rounded-xl border shadow-sm hover:shadow-md"
+                className="p-4 bg-bg rounded-xl border border-text shadow-sm hover:shadow-md"
               >
                 <div className="flex flex-col sm:flex-row justify-between gap-2">
 
                   <div>
-                    <p className="text-sm text-gray-500">ID: {c.reportId}</p>
-                    <p className="text-base font-semibold text-gray-800">{c.issue}</p>
-                    <p className="text-sm text-gray-600">📍 {c.location}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm text-text/60">ID: {c.reportId}</p>
+                    <p className="text-base font-semibold text-text">{c.issue}</p>
+                    <p className="text-sm text-text/60">📍 {c.location}</p>
+                    <p className="text-xs text-text/60">
                       Reported by {c.name} {c.phone && `• ${c.phone}`}
                     </p>
                   </div>

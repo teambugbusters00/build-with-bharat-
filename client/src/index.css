@@ -3,8 +3,8 @@
 
 
 @theme{
-  --bg: var(--bg);
-  --text: var(--text);
+  --color-bg: var(--bg);
+  --color-text: var(--text);
 }
 
 :root {
@@ -15,4 +15,8 @@
 .dark{
   --bg: #121212;
   --text: #ffffff;
+}
+
+html {
+  transition: background-color .3s, color .3s;
 }

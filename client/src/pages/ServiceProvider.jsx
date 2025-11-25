@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import { useLocationContext } from "../contexts/LocationContext";
 
 const ServiceProvider = () => {
@@ -73,7 +72,6 @@ const ServiceProvider = () => {
 
     return (
         <>
-            <Navbar />
             <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border border-gray-300">
                 {/* Header */}
                 <h2 className="text-xl font-bold text-gray-800 text-center">
