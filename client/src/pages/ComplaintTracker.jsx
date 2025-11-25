@@ -222,7 +222,7 @@ export default function ComplaintTracker() {
     <>
       <Navbar />
 
-      <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 bg-white rounded-2xl shadow-lg border">
+      <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border">
 
         <h2 className="text-xl sm:text-2xl font-bold text-gray-800 text-center">
           Civic Complaints & Tracking

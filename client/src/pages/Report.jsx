@@ -64,7 +64,7 @@ const Report = () => {
     return (
         <>
             <Navbar />
-            <div className="max-w-md mx-auto my-6 p-5 bg-white rounded-2xl shadow-lg border border-gray-300">
+            <div className="max-w-md mx-auto my-6 p-5 rounded-2xl shadow-lg border border-gray-300">
 
                 {/* Header */}
                 <h2 className="text-xl font-bold text-gray-800 text-center">
