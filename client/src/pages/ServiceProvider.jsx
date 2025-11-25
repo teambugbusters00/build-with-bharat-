@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import { useLocationContext } from "../contexts/LocationContext";
 
 const ServiceProvider = () => {
+    const { location, coords, loading, refreshLocation } = useLocationContext()
     const [isOpen, setIsOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -12,6 +14,16 @@ const ServiceProvider = () => {
         serviceType: "",
         experience: ""
     });
+
+    useEffect(() => {
+        if (location) {
+            setForm((prev) => ({
+                ...prev,
+                location: location,
+            }));
+        }
+    }, [location]);
+
 
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });

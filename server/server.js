@@ -1,0 +1,19 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import reportRoutes from "./routes/reportRoutes.js";
+
+dotenv.config();
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect(process.env.REPORT_MONGODB_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error(err));
+
+app.use("/api/report", reportRoutes);
+
+app.listen(5000, () => console.log("Server running on port 5000"));

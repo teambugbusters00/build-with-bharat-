@@ -37,6 +37,7 @@ const Navbar = () => {
                     <Link to="/" className="hover:text-blue-600 transition">Home</Link>
                     <Link to="/report" className="hover:text-blue-600 transition">Report Issue</Link>
                     <Link to="/service-provider" className="hover:text-blue-600 transition">Service Providers</Link>
+                    <Link to="/complaint-tracker" className="hover:text-blue-600 transition">Complaint Tracker</Link>
                     {userLoggedIn && <Link to="/profile" className="hover:text-blue-600 transition">Profile</Link>}
                 </div>
 
@@ -76,7 +77,8 @@ const Navbar = () => {
                     <Link to="/" onClick={() => setOpen(false)} className="block py-1 text-gray-700 font-medium hover:text-blue-600">Home</Link>
                     <Link to="/report" onClick={() => setOpen(false)} className="block py-1 text-gray-700 font-medium hover:text-blue-600">Report Issue</Link>
                     <Link to="/service-provider" onClick={() => setOpen(false)} className="block py-1 text-gray-700 font-medium hover:text-blue-600">Service Providers</Link>
-
+                    <Link to="/complaint-tracker" onClick={() => setOpen(false)} className="block py-1 text-gray-700 font-medium hover:text-blue-600">Complaint Tracker</Link>
+                    
                     <div className="flex flex-col text-center gap-3 pt-2">
 
                         <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition">🌓</button>

@@ -1,74 +1,65 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar';
+import { useLocationContext } from "../contexts/LocationContext";
 
 const Report = () => {
 
-    const [location, setLocation] = useState("");
-    const [coords, setCoords] = useState({ lat: null, lon: null });
-
-    useEffect(() => {
-        getLocationOnLoad();
-    }, []);
-
-    const getLocationOnLoad = () => {
-        if (!navigator.geolocation) {
-            console.error("Geolocation not supported.");
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            async (pos) => {
-                const lat = pos.coords.latitude;
-                const lon = pos.coords.longitude;
-
-                setCoords({ lat, lon });
-
-                const address = await reverseGeocode(lat, lon);
-                setLocation(address);
-            },
-            (err) => {
-                console.error("GPS Fetch Error:", err);
-                setLocation("Location unavailable");
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 8000,
-                maximumAge: 0,
-            }
-        );
-    };
-
-    const reverseGeocode = async (lat, lon) => {
-        try {
-            const res = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
-            );
-            const data = await res.json();
-            return data.display_name || `${lat}, ${lon}`;
-        } catch (e) {
-            console.error("Reverse geocode error:", e);
-            return `${lat}, ${lon}`;
-        }
-    };
-
+    const { location, coords, loading, refreshLocation } = useLocationContext()
     const [name, setName] = useState("")
+    const [locationInput, setLocationInput] = useState("")
+    const [phone, setPhone] = useState("")
     const [issue, setIssue] = useState("")
     const [description, setDescription] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        setIsSubmitting(true)
+    useEffect(() => {
+        if (location) {
+            setLocationInput(location);
+        }
+    }, [location]);
 
-        setTimeout(() => {
-            alert("Report submitted successfully!")
-            setName("")
-            setLocation("")
-            setIssue("")
-            setDescription("")
-            setIsSubmitting(false)
-        }, 2000)
-    }
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        const payload = {
+            name,
+            location: locationInput,
+            coords,
+            issue,
+            description,
+            phone: "",
+            status: "Received"
+        };
+
+        try {
+            const res = await fetch("http://localhost:5000/api/report", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                alert(`Report submitted!\nYour ID:\n${data.report.reportId}`);
+            } else {
+                alert("Failed to submit. Try again.");
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("Server error.");
+        }
+
+        setName("");
+        setLocationInput(location);
+        setPhone("");
+        setIssue("");
+        setDescription("");
+        setIsSubmitting(false);
+    };
+
 
     return (
         <>
@@ -112,8 +103,8 @@ const Report = () => {
                             id="location"
                             name="location"
                             required
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
+                            value={locationInput}
+                            onChange={(e) => setLocationInput(e.target.value)}
                             placeholder="Area / Landmark (e.g. Near Post Office)"
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
@@ -128,6 +119,9 @@ const Report = () => {
                             type="tel"
                             id="phone"
                             name="phone"
+                            maxLength="10"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                             placeholder="Enter your phone number"
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
