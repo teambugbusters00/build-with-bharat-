@@ -12,7 +12,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 
-const API_URL = "http://localhost:5000/api/report";
+const API_URL = "https://gaon-connect-bfb.onrender.com/api/report";
 
 // Status pipeline
 const STATUSES = ["Received", "Assigned", "In Progress", "Resolved", "Reopened"];

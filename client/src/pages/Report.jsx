@@ -33,7 +33,7 @@ const Report = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/api/report", {
+            const res = await fetch("https://gaon-connect-bfb.onrender.com/api/report", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
