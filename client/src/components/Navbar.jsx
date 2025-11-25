@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from '../contexts/authContext'
+import { doSignOut } from '../firebase/auth'
 
 const Navbar = () => {
+
+    const { userLoggedIn } = useAuth()
     const [open, setOpen] = useState(false);
 
     return (
@@ -56,21 +60,33 @@ const Navbar = () => {
                         🌓
                     </button>
 
-                    {/* Login */}
-                    <Link
-                        to="/login"
-                        className="px-3 py-1.5 rounded-lg border border-blue-500 text-blue-600 font-medium hover:bg-blue-50 transition"
-                    >
-                        Login
-                    </Link>
+                    {userLoggedIn ? (
+                        <button onClick={() => doSignOut()}
+                            to="/signup"
+                            className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+                        >
+                            Log Out
+                        </button>
+                    ) : (
+                        <>
+                            {/* Login */}
+                            <Link
+                                to="/login"
+                                className="px-3 py-1.5 rounded-lg border border-blue-500 text-blue-600 font-medium hover:bg-blue-50 transition"
+                            >
+                                Login
+                            </Link>
 
-                    {/* Signup */}
-                    <Link
-                        to="/signup"
-                        className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
-                    >
-                        Sign Up
-                    </Link>
+                            {/* Signup */}
+                            <Link
+                                to="/signup"
+                                className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+                            >
+                                Sign Up
+                            </Link>
+                        </>
+                    )
+                    }
                 </div>
             </div>
 
@@ -108,19 +124,33 @@ const Navbar = () => {
                             🌓
                         </button>
 
-                        <Link
-                            to="/login"
-                            className="px-3 py-1 rounded-lg border border-blue-500 text-blue-600 hover:bg-blue-50 transition"
-                        >
-                            Login
-                        </Link>
+                        {userLoggedIn ? (
+                            <button onClick={() => doSignOut()}
+                                to="/signup"
+                                className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+                            >
+                                Log Out
+                            </button>
+                        ) : (
+                            <>
+                                {/* Login */}
+                                <Link
+                                    to="/login"
+                                    className="px-3 py-1.5 rounded-lg border border-blue-500 text-blue-600 font-medium hover:bg-blue-50 transition"
+                                >
+                                    Login
+                                </Link>
 
-                        <Link
-                            to="/signup"
-                            className="px-3 py-1 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-                        >
-                            Sign Up
-                        </Link>
+                                {/* Signup */}
+                                <Link
+                                    to="/signup"
+                                    className="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+                                >
+                                    Sign Up
+                                </Link>
+                            </>
+                        )
+                        }
                     </div>
                 </div>
             )}
