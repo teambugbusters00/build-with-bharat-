@@ -37,6 +37,7 @@ const Navbar = () => {
                     <Link to="/" className="hover:text-blue-600 transition">Home</Link>
                     <Link to="/report" className="hover:text-blue-600 transition">Report Issue</Link>
                     <Link to="/service-provider" className="hover:text-blue-600 transition">Service Providers</Link>
+                    {userLoggedIn && <Link to="/profile" className="hover:text-blue-600 transition">Profile</Link>}
                 </div>
 
                 {/* RIGHT SIDE (DESKTOP) */}
