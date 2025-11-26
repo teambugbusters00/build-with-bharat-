@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useLocationContext } from "../contexts/LocationContext";
+import { useTranslation } from 'react-i18next'
 
 const ServiceProvider = () => {
+    const { t } = useTranslation()
     const { location, coords } = useLocationContext();
-
     const [isOpen, setIsOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
     const [providers, setProviders] = useState([]);
-
     const [form, setForm] = useState({
         name: "",
         phone: "",
@@ -104,10 +103,10 @@ const ServiceProvider = () => {
         <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border border-gray-300">
 
             <h2 className="text-xl font-bold text-gray-800 text-center">
-                Local Service Providers
+                {t("providers.title")}
             </h2>
             <p className="text-xs text-gray-500 text-center mt-1">
-                Find trusted workers near you — electricians, plumbers, carpenters & more.
+                {t("providers.heading")}
             </p>
 
             {/* ----------------- ACCORDION ----------------- */}
@@ -116,7 +115,7 @@ const ServiceProvider = () => {
                     onClick={() => setIsOpen(!isOpen)}
                     className="w-full flex justify-between items-center p-4 font-semibold text-gray-800 text-sm sm:text-base"
                 >
-                    <span>Register as a Service Provider</span>
+                    <span>{t("providers.carouselText")}</span>
                     <span>{isOpen ? "▲" : "▼"}</span>
                 </button>
 
@@ -130,7 +129,7 @@ const ServiceProvider = () => {
                                 required
                                 value={form.name}
                                 onChange={handleChange}
-                                placeholder="Full Name"
+                                placeholder={t("providers.nameValue")}
                                 className="w-full p-3 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 text-sm"
                             />
 
@@ -140,7 +139,7 @@ const ServiceProvider = () => {
                                 required
                                 value={form.phone}
                                 onChange={handleChange}
-                                placeholder="Phone Number"
+                                placeholder={t("providers.phoneValue")}
                                 className="w-full p-3 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 text-sm"
                             />
 
@@ -150,7 +149,7 @@ const ServiceProvider = () => {
                                 required
                                 value={form.location}
                                 onChange={handleChange}
-                                placeholder="Your Area / Locality"
+                                placeholder={t("providers.locationValue")}
                                 className="w-full p-3 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 text-sm"
                             />
 
@@ -161,13 +160,13 @@ const ServiceProvider = () => {
                                 onChange={handleChange}
                                 className="w-full p-3 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 text-sm"
                             >
-                                <option value="">Select Service</option>
-                                <option value="Plumber">🚰 Plumber</option>
-                                <option value="Electrician">⚡ Electrician</option>
-                                <option value="Carpenter">🪚 Carpenter</option>
-                                <option value="Driver">🚗 Driver</option>
-                                <option value="Painter">🎨 Painter</option>
-                                <option value="Mechanic">🔧 Mechanic</option>
+                                <option value="">{t("providers.serviceValue.choose")}</option>
+                                <option value="Plumber">{t("providers.serviceValue.plumber")}</option>
+                                <option value="Electrician">{t("providers.serviceValue.electrician")}</option>
+                                <option value="Carpenter">{t("providers.serviceValue.carpenter")}</option>
+                                <option value="Driver">{t("providers.serviceValue.driver")}</option>
+                                <option value="Painter">{t("providers.serviceValue.painter")}</option>
+                                <option value="Mechanic">{t("providers.serviceValue.mechanic")}</option>
                             </select>
 
                             <input
@@ -176,7 +175,7 @@ const ServiceProvider = () => {
                                 required
                                 value={form.experience}
                                 onChange={handleChange}
-                                placeholder="Experience (e.g., 5 years)"
+                                placeholder={t("providers.experienceValue")}
                                 className="w-full p-3 border rounded-lg bg-white focus:ring-2 focus:ring-blue-500 text-sm"
                             />
 
@@ -195,9 +194,7 @@ const ServiceProvider = () => {
                             >
                                 {isSubmitting ? (
                                     <div className="mx-auto rounded-full animate-spin h-5 w-5 border-b-2 border-white"></div>
-                                ) : (
-                                    "Submit Registration"
-                                )}
+                                ) : (t("providers.submit"))}
                             </button>
                         </form>
                     </div>
@@ -206,12 +203,12 @@ const ServiceProvider = () => {
 
             {/* ----------------- PROVIDERS LIST ----------------- */}
             <h3 className="text-lg font-bold mt-6 mb-3 text-gray-800">
-                Available Professionals
+                {t("providers.listTitle")}
             </h3>
 
             <div className="space-y-4">
                 {providers.length === 0 && (
-                    <p className="text-sm text-gray-500">No providers yet.</p>
+                    <p className="text-sm text-gray-500">{t("providers.noProviders")}</p>
                 )}
 
                 {providers.map((p) => (

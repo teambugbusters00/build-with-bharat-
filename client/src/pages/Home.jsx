@@ -1,7 +1,8 @@
 import { useAuth } from '../contexts/authContext'
+import { useTranslation } from 'react-i18next'
 
 const Home = () => {
-
+  const { t } = useTranslation()
   const { currentUser } = useAuth()
   const { userLoggedIn } = useAuth()
 

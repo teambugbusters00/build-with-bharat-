@@ -10,19 +10,17 @@ import {
 
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
-
-// Status pipeline
-const STATUSES = ["Received", "Assigned", "In Progress", "Resolved", "Reopened"];
+import { useTranslation } from "react-i18next";
 
 // Badge colors
 const statusColor = (s) =>
-  ({
-    Received: "bg-gray-100 text-gray-700 border-gray-300",
-    Assigned: "bg-amber-100 text-amber-800 border-amber-300",
-    "In Progress": "bg-blue-100 text-blue-800 border-blue-300",
-    Resolved: "bg-green-100 text-green-800 border-green-300",
-    Reopened: "bg-red-100 text-red-700 border-red-300",
-  }[s] || "bg-gray-100 text-gray-700 border-gray-300");
+({
+  Received: "bg-gray-100 text-gray-700 border-gray-300",
+  Assigned: "bg-amber-100 text-amber-800 border-amber-300",
+  "In Progress": "bg-blue-100 text-blue-800 border-blue-300",
+  Resolved: "bg-green-100 text-green-800 border-green-300",
+  Reopened: "bg-red-100 text-red-700 border-red-300",
+}[s] || "bg-gray-100 text-gray-700 border-gray-300");
 
 // Marker color by category
 const markerColor = (cat) => {
@@ -106,6 +104,17 @@ function MapView({ complaints }) {
 
 /* ------------------------- MAIN COMPONENT ------------------------- */
 export default function ComplaintTracker() {
+  const { t, i18n } = useTranslation()
+  const STATUSES = useMemo(() => [
+  t("ComplaintTracker.status.revieved"),
+  t("ComplaintTracker.status.assigned"),
+  t("ComplaintTracker.status.inProgress"),
+  t("ComplaintTracker.status.resolved"),
+  t("ComplaintTracker.status.reopened")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+], [i18n.language]);
+
+
   const [openForm, setOpenForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -220,15 +229,15 @@ export default function ComplaintTracker() {
       <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border border-text">
 
         <h2 className="text-xl sm:text-2xl font-bold text-text text-center">
-          Civic Complaints & Tracking
+          {t("ComplaintTracker.title")}
         </h2>
 
         <p className="text-xs text-text/80 text-center mt-1">
-          Live map, heatmap & transparent issue tracking.
+          {t("ComplaintTracker.heading")}
         </p>
 
         {/* ------------------ MAP + HEATMAP ------------------ */}
-        <h3 className="text-lg font-bold mt-6 mb-2 text-text">Issue Heatmap</h3>
+        <h3 className="text-lg font-bold mt-6 mb-2 text-text">{t("ComplaintTracker.abcd")}</h3>
 
         <div className="w-full h-72 sm:h-96 mb-6 rounded-xl overflow-hidden border border-text shadow">
           <MapView complaints={list} />
@@ -236,11 +245,11 @@ export default function ComplaintTracker() {
 
         {/* --------------------- TRACK COMPLAINT --------------------- */}
         <div className="mt-6 bg-bg border rounded-xl p-4">
-          <p className="text-sm font-semibold text-text">Track complaint by Report ID</p>
+          <p className="text-sm font-semibold text-text">{t("ComplaintTracker.reportID")}</p>
 
           <div className="flex gap-2 mt-2 flex-col sm:flex-row">
             <input
-              placeholder="Enter Report ID"
+              placeholder={t("ComplaintTracker.reportIDValue")}
               className="flex-1 p-3 border rounded-lg bg-text/90 text-bg"
               value={trackId}
               onChange={(e) => setTrackId(e.target.value)}
@@ -250,7 +259,7 @@ export default function ComplaintTracker() {
               onClick={findTicket}
               className="bg-blue-600 text-text px-4 py-3 rounded-lg hover:bg-blue-700"
             >
-              Track
+              {t("ComplaintTracker.button")}
             </button>
           </div>
 
@@ -258,7 +267,7 @@ export default function ComplaintTracker() {
             <div className="mt-3 p-3 border rounded-lg bg-text-50">
               {tracked.notFound ? (
                 <p className="text-sm text-red-600">
-                  No complaint found for ID: {tracked.id}
+                  {t("ComplaintTracker.reportID")} {tracked.id}
                 </p>
               ) : (
                 <>
@@ -280,7 +289,7 @@ export default function ComplaintTracker() {
         {/* --------------------- SEARCH + FILTER --------------------- */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <input
-            placeholder="Search by ID / name / phone / location / issue"
+            placeholder={t("ComplaintTracker.search")}
             className="flex-1 p-3 border rounded-lg bg-text/90 text-bg"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -291,7 +300,7 @@ export default function ComplaintTracker() {
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
           >
-            <option value="">All statuses</option>
+            <option value="">{t("ComplaintTracker.status.all")}</option>
             {STATUSES.map((s) => (
               <option key={s}>{s}</option>
             ))}
@@ -300,12 +309,12 @@ export default function ComplaintTracker() {
 
         {/* --------------------- COMPLAINT LIST --------------------- */}
         <h3 className="text-lg font-bold mt-5 mb-2 text-text">
-          Recent Complaints
+          {t("ComplaintTracker.complaint")}
         </h3>
 
         <div className="space-y-3">
           {filtered.length === 0 ? (
-            <p className="text-sm text-gray-500">No complaints yet.</p>
+            <p className="text-sm text-gray-500">{t("ComplaintTracker.footer")}</p>
           ) : (
             filtered.map((c) => (
               <div

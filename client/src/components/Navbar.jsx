@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/authContext';
 import { useTheme } from "../contexts/ThemeContext";
 import { doSignOut } from '../firebase/auth';
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+    const { t } = useTranslation();
     const { userLoggedIn } = useAuth();
     const [open, setOpen] = useState(false);
     const { darkMode, toggleTheme } = useTheme();
@@ -17,13 +20,7 @@ const Navbar = () => {
                 {/* LEFT */}
                 <div className="flex items-center gap-2">
                     <img src="/logo.png" alt="logo" className="w-10 h-10 rounded-md" />
-                    <span className="font-bold text-lg text-text">CityHelp</span>
-
-                    <select className="md:hidden p-1 border rounded-md text-sm">
-                        <option>EN</option>
-                        <option>HI</option>
-                        <option>BN</option>
-                    </select>
+                    <span className="font-bold text-lg text-text">{t("navbar.Name")}</span>
                 </div>
 
                 {/* MOBILE BUTTON */}
@@ -36,22 +33,18 @@ const Navbar = () => {
 
                 {/* CENTER NAV (DESKTOP) */}
                 <div className="hidden md:flex gap-8 text-text font-medium">
-                    <Link to="/" className="hover:text-blue-600 transition">Home</Link>
-                    <Link to="/report" className="hover:text-blue-600 transition">Report Issue</Link>
-                    <Link to="/service-provider" className="hover:text-blue-600 transition">Service Providers</Link>
-                    <Link to="/complaint-tracker" className="hover:text-blue-600 transition">Complaint Tracker</Link>
-                    {userLoggedIn && <Link to="/profile" className="hover:text-blue-600 transition">Profile</Link>}
+                    <Link to="/" className="hover:text-blue-600 transition">{t("navbar.home")}</Link>
+                    <Link to="/report" className="hover:text-blue-600 transition">{t("navbar.ReportIssue")}</Link>
+                    <Link to="/service-provider" className="hover:text-blue-600 transition">{t("navbar.ServiceProviders")}</Link>
+                    <Link to="/complaint-tracker" className="hover:text-blue-600 transition">{t("navbar.ComplaintTracker")}</Link>
+                    {userLoggedIn && <Link to="/profile" className="hover:text-blue-600 transition">{t("navbar.Profile")}</Link>}
                 </div>
 
                 {/* RIGHT SIDE (DESKTOP) */}
                 <div className="hidden md:flex items-center gap-4">
-                    <select className="p-1 border rounded-md text-sm">
-                        <option>EN</option>
-                        <option>HI</option>
-                        <option>BN</option>
-                    </select>
+                    <LanguageSwitcher />
 
-                    <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition" onClick={() => {toggleTheme();}}>🌓</button>
+                    <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition" onClick={() => { toggleTheme(); }}>🌓</button>
                     {userLoggedIn ? (
                         <button
                             onClick={async () => {
@@ -64,8 +57,8 @@ const Navbar = () => {
                         </button>
                     ) : (
                         <>
-                            <Link to="/login" className="px-3 py-1.5 rounded-lg border border-blue-500 text-blue-600 hover:bg-blue-50 transition">Login</Link>
-                            <Link to="/signup" className="px-3 py-1.5 rounded-lg bg-blue-600 text-text hover:bg-blue-700 transition">Sign Up</Link>
+                            <Link to="/login" className="px-3 py-1.5 rounded-lg border border-blue-500 text-blue-600 hover:bg-blue-50 transition">{t("navbar.Login")}</Link>
+                            <Link to="/signup" className="px-3 py-1.5 rounded-lg bg-blue-600 text-text hover:bg-blue-700 transition">{t("navbar.SignUp")}</Link>
                         </>
                     )}
                 </div>
@@ -79,7 +72,7 @@ const Navbar = () => {
                     <Link to="/report" onClick={() => setOpen(false)} className="block py-1 text-text font-medium hover:text-blue-600">Report Issue</Link>
                     <Link to="/service-provider" onClick={() => setOpen(false)} className="block py-1 text-text font-medium hover:text-blue-600">Service Providers</Link>
                     <Link to="/complaint-tracker" onClick={() => setOpen(false)} className="block py-1 text-text font-medium hover:text-blue-600">Complaint Tracker</Link>
-                    
+
                     <div className="flex flex-col text-center gap-3 pt-2">
 
                         <button className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition">🌓</button>

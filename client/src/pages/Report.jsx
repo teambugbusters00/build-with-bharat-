@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useLocationContext } from "../contexts/LocationContext";
+import { useTranslation } from 'react-i18next'
 
 const Report = () => {
 
+    const { t } = useTranslation()
     const { location, coords, loading, refreshLocation } = useLocationContext()
     const [name, setName] = useState("")
     const [locationInput, setLocationInput] = useState("")
@@ -66,10 +68,10 @@ const Report = () => {
 
                 {/* Header */}
                 <h2 className="text-xl font-bold text-text text-center">
-                    Report an Urgent Issue
+                    {t("reportPage.title")}
                 </h2>
                 <p className="text-xs text-text/80 text-center mt-1">
-                    Help your community. Your report reaches nearby volunteers & authorities.
+                    {t("reportPage.heading")}
                 </p>
 
                 <form onSubmit={submitHandler} className="space-y-4 mt-5 text-text">
@@ -77,7 +79,7 @@ const Report = () => {
                     {/* Name */}
                     <div>
                         <label htmlFor="name" className="text-sm font-medium text-text/80">
-                            Your Name
+                            {t("reportPage.name")}
                         </label>
                         <input
                             type="text"
@@ -86,7 +88,7 @@ const Report = () => {
                             required
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Enter your name"
+                            placeholder={t("reportPage.nameValue")}
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
                     </div>
@@ -94,7 +96,7 @@ const Report = () => {
                     {/* Location */}
                     <div>
                         <label htmlFor="location" className="text-sm font-medium text-text/80">
-                            Location of the Issue
+                            {t("reportPage.location")}
                         </label>
                         <input
                             type="text"
@@ -103,7 +105,7 @@ const Report = () => {
                             required
                             value={locationInput}
                             onChange={(e) => setLocationInput(e.target.value)}
-                            placeholder="Area / Landmark (e.g. Near Post Office)"
+                            placeholder={t("reportPage.locationValue")}
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
                     </div>
@@ -111,7 +113,7 @@ const Report = () => {
                     {/* Phone Number */}
                     <div>
                         <label htmlFor="phone" className="text-sm font-medium text-text/80">
-                            Contact Number (Optional)
+                            {t("reportPage.phoneValue")}
                         </label>
                         <input
                             type="tel"
@@ -120,7 +122,7 @@ const Report = () => {
                             maxLength="10"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            placeholder="Enter your phone number"
+                            placeholder={t("reportPage.phoneValue")}
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
                     </div>
@@ -128,7 +130,7 @@ const Report = () => {
                     {/* Issue Type */}
                     <div>
                         <label htmlFor="issue" className="text-sm font-medium text-text/80">
-                            Select Issue Type
+                            {t("reportPage.issue")}
                         </label>
                         <select
                             id="issue"
@@ -138,21 +140,21 @@ const Report = () => {
                             onChange={(e) => setIssue(e.target.value)}
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         >
-                            <option value="">Choose an option</option>
-                            <option value="accident">🚑 Accident</option>
-                            <option value="fire">🔥 Fire</option>
-                            <option value="staryDogAttack">🐕 Stray Dog Attack</option>
-                            <option value="medicalEmergency">🏥 Medical Emergency</option>
-                            <option value="unsafeRoad">🛣️ Unsafe Road Condition</option>
-                            <option value="darkRoad">🌑 Dark Road</option>
-                            <option value="other">⚠️ Other</option>
+                            <option value="">{t("reportPage.issueValue.choose")}</option>
+                            <option value="accident">{t("reportPage.issueValue.accident")}</option>
+                            <option value="fire">{t("reportPage.issueValue.fire")}</option>
+                            <option value="staryDogAttack">{t("reportPage.issueValue.staryDogAttack")}</option>
+                            <option value="medicalEmergency">{t("reportPage.issueValue.medicalEmergency")}</option>
+                            <option value="unsafeRoad">{t("reportPage.issueValue.unsafeRoad")}</option>
+                            <option value="darkRoad">{t("reportPage.issueValue.darkRoad")}</option>
+                            <option value="other">{t("reportPage.issueValue.other")}</option>
                         </select>
                     </div>
 
                     {/* Description */}
                     <div>
                         <label htmlFor="description" className="text-sm font-medium text-text/80">
-                            Describe the Situation
+                            {t("reportPage.desc")}
                         </label>
                         <textarea
                             id="description"
@@ -160,7 +162,7 @@ const Report = () => {
                             required
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Explain what happened... (e.g. bike accident on main road)"
+                            placeholder={t("reportPage.descValue")}
                             rows="4"
                             className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         ></textarea>
@@ -172,12 +174,12 @@ const Report = () => {
                         disabled={isSubmitting}
                         className={`w-full ${isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer'} bg-blue-500 text-white p-3 rounded-lg text-base font-semibold hover:bg-blue-700 active:scale-[0.98] transition`}
                     >
-                        {isSubmitting ? (<div className="mx-auto rounded-full animate-spin h-5 w-5 border-b-3 border-white-900" />) : "Submit Report"}
+                        {isSubmitting ? (<div className="mx-auto rounded-full animate-spin h-5 w-5 border-b-3 border-white-900" />) : t("reportPage.submit")}
                     </button>
 
                     {/* Footer safety note */}
                     <p className="text-[11px] text-text+/80 text-center mt-2">
-                        Your location is used only to send help faster.
+                        {t("reportPage.footer")}
                     </p>
                 </form>
             </div>
