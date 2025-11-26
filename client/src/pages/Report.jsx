@@ -32,7 +32,7 @@ const Report = () => {
         };
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/report`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -62,21 +62,21 @@ const Report = () => {
 
     return (
         <>
-            <div className="max-w-md mx-auto my-6 p-5 rounded-2xl shadow-lg border border-gray-300">
+            <div className="max-w-md mx-auto my-6 p-5 rounded-2xl shadow-lg border border-bg">
 
                 {/* Header */}
-                <h2 className="text-xl font-bold text-gray-800 text-center">
+                <h2 className="text-xl font-bold text-text text-center">
                     Report an Urgent Issue
                 </h2>
-                <p className="text-xs text-gray-500 text-center mt-1">
+                <p className="text-xs text-text/80 text-center mt-1">
                     Help your community. Your report reaches nearby volunteers & authorities.
                 </p>
 
-                <form onSubmit={submitHandler} className="space-y-4 mt-5">
+                <form onSubmit={submitHandler} className="space-y-4 mt-5 text-text">
 
                     {/* Name */}
                     <div>
-                        <label htmlFor="name" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="name" className="text-sm font-medium text-text/80">
                             Your Name
                         </label>
                         <input
@@ -87,13 +87,13 @@ const Report = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="Enter your name"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
                     </div>
 
                     {/* Location */}
                     <div>
-                        <label htmlFor="location" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="location" className="text-sm font-medium text-text/80">
                             Location of the Issue
                         </label>
                         <input
@@ -104,13 +104,13 @@ const Report = () => {
                             value={locationInput}
                             onChange={(e) => setLocationInput(e.target.value)}
                             placeholder="Area / Landmark (e.g. Near Post Office)"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
                     </div>
 
                     {/* Phone Number */}
                     <div>
-                        <label htmlFor="phone" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="phone" className="text-sm font-medium text-text/80">
                             Contact Number (Optional)
                         </label>
                         <input
@@ -121,13 +121,13 @@ const Report = () => {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="Enter your phone number"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         />
                     </div>
 
                     {/* Issue Type */}
                     <div>
-                        <label htmlFor="issue" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="issue" className="text-sm font-medium text-text/80">
                             Select Issue Type
                         </label>
                         <select
@@ -136,7 +136,7 @@ const Report = () => {
                             required
                             value={issue}
                             onChange={(e) => setIssue(e.target.value)}
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         >
                             <option value="">Choose an option</option>
                             <option value="accident">🚑 Accident</option>
@@ -151,7 +151,7 @@ const Report = () => {
 
                     {/* Description */}
                     <div>
-                        <label htmlFor="description" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="description" className="text-sm font-medium text-text/80">
                             Describe the Situation
                         </label>
                         <textarea
@@ -162,7 +162,7 @@ const Report = () => {
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Explain what happened... (e.g. bike accident on main road)"
                             rows="4"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                         ></textarea>
                     </div>
 
@@ -176,7 +176,7 @@ const Report = () => {
                     </button>
 
                     {/* Footer safety note */}
-                    <p className="text-[11px] text-gray-500 text-center mt-2">
+                    <p className="text-[11px] text-text+/80 text-center mt-2">
                         Your location is used only to send help faster.
                     </p>
                 </form>

@@ -134,7 +134,7 @@ export default function ComplaintTracker() {
 
   const fetchReports = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/all`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/report/all`);
       const data = await res.json();
       if (data.success) setList(data.reports.reverse());
     } catch (err) {
@@ -148,7 +148,7 @@ export default function ComplaintTracker() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/report/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -181,12 +181,12 @@ export default function ComplaintTracker() {
 
   /* --------------------- STATUS UPDATE --------------------- */
   const advanceStatus = async (id) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/advance/${id}`, { method: "PATCH" });
+    await fetch(`${import.meta.env.VITE_API_URL}/report/advance/${id}`, { method: "PATCH" });
     fetchReports();
   };
 
   const reopen = async (id) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/reopen/${id}`, { method: "PATCH" });
+    await fetch(`${import.meta.env.VITE_API_URL}/report/reopen/${id}`, { method: "PATCH" });
     fetchReports();
   };
 
