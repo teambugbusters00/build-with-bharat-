@@ -1,7 +1,7 @@
 const translations = {
     navbar: {
         logo: "लोगो मजकूर",
-        Name: "सिटीहेल्प",
+        Name: "गाँव कनेक्ट",
         home: "होम (मुख्यपृष्ठ)",
         ReportIssue: "समस्या नोंदवा",
         ServiceProviders: "सेवा पुरवठादार",
@@ -10,6 +10,11 @@ const translations = {
         EN: "EN",
         Login: "लॉग इन करा",
         SignUp: "साइन अप करा",
+    },
+
+    homePage: {
+        welcome: "स्वागत होय",
+        msg: "गांव कनेक्ट में"
     },
 
     reportPage: {

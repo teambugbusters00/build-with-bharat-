@@ -9,8 +9,8 @@ const Home = () => {
   return (
     <>
       <div className="min-h-[80vh] flex items-center justify-center">
-        <h1 className="text-xl font-semibold text-white">
-          Welcome {userLoggedIn ? (currentUser?.displayName ? currentUser.displayName : currentUser?.email) : 'Guest'} to Gaon Connect
+        <h1 className="text-xl font-semibold text-text">
+          {t("homePage.welcome")} {userLoggedIn ? (currentUser?.displayName ? currentUser.displayName : currentUser?.email) : 'Guest'} {t("homePage.msg")}
         </h1>
       </div>
     </>

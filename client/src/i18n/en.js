@@ -12,6 +12,11 @@ const translations = {
         SignUp: "Sign Up",
     },
 
+    homePage:{
+        welcome: "Welcome",
+        msg: "to Gaon Connect"
+    },
+
     reportPage: {
         title: "Report an Urgent Issue",
         heading: "Help your community. Your report reaches nearby volunteers & authorities.",

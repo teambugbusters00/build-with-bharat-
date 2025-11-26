@@ -1,7 +1,7 @@
 const translations = {
     navbar: {
         logo: "లోగో పాఠం",
-        Name: "సిటీహెల్ప్",
+        Name: "గావ్ కనెక్ట్",
         home: "హోమ్ (ముఖ్య పేజీ)",
         ReportIssue: "సమస్యను నివేదించండి",
         ServiceProviders: "సేవా ప్రదాతలు",
@@ -10,6 +10,11 @@ const translations = {
         EN: "EN",
         Login: "లాగిన్ అవ్వండి",
         SignUp: "సైన్ అప్ చేయండి",
+    },
+
+    homePage: {
+        welcome: "స్వాగతం",
+        msg: "గాంవ కనెక్ట్ మేందు"
     },
 
     reportPage: {
