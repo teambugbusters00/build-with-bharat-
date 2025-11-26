@@ -10,6 +10,7 @@ const translations = {
         EN: "EN",
         Login: "लॉग इन करें",
         SignUp: "साइन अप करें",
+        logout: "लॉग आउट"
     },
 
     homePage: {

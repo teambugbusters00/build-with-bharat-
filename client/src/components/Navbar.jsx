@@ -53,7 +53,7 @@ const Navbar = () => {
                             }}
                             className="px-3 py-1.5 rounded-lg bg-blue-600 text-text hover:bg-blue-700 transition"
                         >
-                            Log Out
+                            {t("navbar.logout")}
                         </button>
                     ) : (
                         <>
