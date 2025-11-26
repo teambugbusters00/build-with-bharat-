@@ -37,7 +37,7 @@ const Navbar = () => {
                     <Link to="/report" className="hover:text-blue-600 transition">{t("navbar.ReportIssue")}</Link>
                     <Link to="/service-provider" className="hover:text-blue-600 transition">{t("navbar.ServiceProviders")}</Link>
                     <Link to="/complaint-tracker" className="hover:text-blue-600 transition">{t("navbar.ComplaintTracker")}</Link>
-                    {userLoggedIn && <Link to="/profile" className="hover:text-blue-600 transition">{t("navbar.Profile")}</Link>}
+                    {userLoggedIn && <Link to="/profile" className="hover:text-blue-600 transition">{t("navbar.profile")}</Link>}
                 </div>
 
                 {/* RIGHT SIDE (DESKTOP) */}
