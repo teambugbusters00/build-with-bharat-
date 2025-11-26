@@ -11,8 +11,6 @@ import {
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 
-const API_URL = "http://localhost:5000/api/report";
-
 // Status pipeline
 const STATUSES = ["Received", "Assigned", "In Progress", "Resolved", "Reopened"];
 
@@ -136,7 +134,7 @@ export default function ComplaintTracker() {
 
   const fetchReports = async () => {
     try {
-      const res = await fetch(`${API_URL}/all`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/all`);
       const data = await res.json();
       if (data.success) setList(data.reports.reverse());
     } catch (err) {
