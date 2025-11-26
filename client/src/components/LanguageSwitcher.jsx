@@ -10,12 +10,7 @@ const LanguageSwitcher = () => {
         <select
             value={i18n.language}   // FIXED
             onChange={(e) => changeLang(e.target.value)}
-            style={{
-                padding: "6px",
-                borderRadius: "6px",
-                background: "white",
-                border: "1px solid #ccc",
-            }}
+            className="p-1.5 rounded-md bg-bg border border-gray-200 text-text"
         >
             <option value="en">English</option>
             <option value="hi">हिन्दी</option>

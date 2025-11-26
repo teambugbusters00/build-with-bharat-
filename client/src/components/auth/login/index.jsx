@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+                                                                                                                                                                                                                                                                                                                                                                                                                            import React, { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth'
 import { useAuth } from '../../../contexts/authContext'
@@ -22,17 +22,17 @@ const Login = () => {
 
     const onGoogleSignIn = (e) => {
         e.preventDefault()
-        if (!isSigningIn) {
+        if (!isSigningIn) {                                                                                                                                                                                                                                             
             setIsSigningIn(true)
-            doSignInWithGoogle().catch(err => {
-                setIsSigningIn(false)
+            doSignInWithGoogle().catch(err => {                                                                                                                                                                         
+                setIsSigningIn(false)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
             })
         }
     }
 
     return (
         <div>
-            {userLoggedIn && (<Navigate to={'/report'} replace={true} />)}
+            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
 
             <main className="w-full h-screen flex self-center place-content-center place-items-center">
                 <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">

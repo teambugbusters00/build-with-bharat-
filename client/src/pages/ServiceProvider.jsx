@@ -102,10 +102,10 @@ const ServiceProvider = () => {
     return (
         <div className="w-full max-w-4xl mx-auto my-4 px-3 sm:px-5 py-5 rounded-2xl shadow-lg border border-gray-300">
 
-            <h2 className="text-xl font-bold text-gray-800 text-center">
+            <h2 className="text-xl font-bold text-text text-center">
                 {t("providers.title")}
             </h2>
-            <p className="text-xs text-gray-500 text-center mt-1">
+            <p className="text-xs text-text/80 text-center mt-1">
                 {t("providers.heading")}
             </p>
 
@@ -113,7 +113,7 @@ const ServiceProvider = () => {
             <div className="mt-5 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full flex justify-between items-center p-4 font-semibold text-gray-800 text-sm sm:text-base"
+                    className="w-full flex justify-between items-center p-4 font-semibold text-black text-sm sm:text-base"
                 >
                     <span>{t("providers.carouselText")}</span>
                     <span>{isOpen ? "▲" : "▼"}</span>
@@ -202,13 +202,13 @@ const ServiceProvider = () => {
             </div>
 
             {/* ----------------- PROVIDERS LIST ----------------- */}
-            <h3 className="text-lg font-bold mt-6 mb-3 text-gray-800">
+            <h3 className="text-lg font-bold mt-6 mb-3 text-text">
                 {t("providers.listTitle")}
             </h3>
 
             <div className="space-y-4">
                 {providers.length === 0 && (
-                    <p className="text-sm text-gray-500">{t("providers.noProviders")}</p>
+                    <p className="text-sm text-text/80">{t("providers.noProviders")}</p>
                 )}
 
                 {providers.map((p) => (
