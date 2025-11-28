@@ -6,6 +6,7 @@ const translations = {
         ReportIssue: "समस्या बतावो",
         ServiceProviders: "सेवा देवाळा",
         ComplaintTracker: "शिकायत ढूंढणो",
+        communityUpdates: "समुदाय अपडेट",
         profile: "प्रोफाइल",
         EN: "EN",
         Login: "जुड़ जाओ",
@@ -15,7 +16,12 @@ const translations = {
 
     homePage: {
         welcome: "स्वागत होय",
-        msg: "गांव कनेक्ट में"
+        msg: "गांव कनेक्ट में",
+        description: "तकनीक रा ज़रिया सूं ग्रामीण समुदायों को सशक्त बनावो. मसला बतावो, सेवा ढूंढो अर प्रगति रा मागोवा घेरो.",
+        whyChoose: "गांव कनेक्ट का चुणो?",
+        whyChooseDesc: "ग्रामीण समुदाय री ज़रूरतों लाई खास बनाया गया एक व्यापक प्लेटफॉर्म.",
+        successStories: "हमारे समुदाय री कामयाबी री कहानियाँ",
+        successStoriesDesc: "गांव कनेक्ट रा असर रा अनुभव लेनारे ग्रामीण री सच्ची कहानियाँ."
     },
 
     reportPage: {

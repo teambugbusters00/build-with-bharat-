@@ -5,6 +5,9 @@ import mongoose from "mongoose";
 
 import reportRoutes from "./routes/reportRoutes.js";
 import serviceProviderRoutes from "./routes/serviceProviderRoutes.js";
+import noticeRoutes from "./routes/noticeRoutes.js";
+import scheduleRoutes from "./routes/scheduleRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -24,6 +27,9 @@ mongoose
 // Routes
 app.use("/api/report", reportRoutes);
 app.use("/api/providers", serviceProviderRoutes);
+app.use("/api/notices", noticeRoutes);
+app.use("/api/schedules", scheduleRoutes);
+app.use("/api/events", eventRoutes);
 
 // Root test route
 app.get("/", (req, res) => {

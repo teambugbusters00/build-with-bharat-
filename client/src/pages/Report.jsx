@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocationContext } from "../contexts/LocationContext";
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import { AlertTriangle, MapPin, Phone, FileText, Send, CheckCircle, X } from 'lucide-react'
 
 const Report = () => {
 
@@ -12,6 +14,8 @@ const Report = () => {
     const [issue, setIssue] = useState("")
     const [description, setDescription] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitStatus, setSubmitStatus] = useState(null) // null, 'success', 'error'
+    const [reportId, setReportId] = useState("")
 
     useEffect(() => {
         if (location) {
@@ -22,6 +26,7 @@ const Report = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setSubmitStatus(null);
 
         const payload = {
             name,
@@ -29,7 +34,7 @@ const Report = () => {
             coords,
             issue,
             description,
-            phone: "",
+            phone: phone || "",
             status: "Received"
         };
 
@@ -43,14 +48,15 @@ const Report = () => {
             const data = await res.json();
 
             if (data.success) {
-                alert(`Report submitted!\nYour ID:\n${data.report.reportId}`);
+                setReportId(data.report.reportId);
+                setSubmitStatus('success');
             } else {
-                alert("Failed to submit. Try again.");
+                setSubmitStatus('error');
             }
 
         } catch (err) {
             console.error(err);
-            alert("Server error.");
+            setSubmitStatus('error');
         }
 
         setName("");
@@ -63,18 +69,65 @@ const Report = () => {
 
 
     return (
-        <>
-            <div className="max-w-md mx-auto my-6 p-5 rounded-2xl shadow-lg border border-bg">
+        <div className="min-h-screen py-12 px-4 md:px-8" style={{ background: 'linear-gradient(to bottom right, #46acfc, #3ffbd8)' }}>
+            <div className="max-w-2xl mx-auto">
+                {/* Success/Error Toast */}
+                {submitStatus && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`mb-6 p-4 rounded-xl flex items-center gap-3 ${
+                            submitStatus === 'success'
+                                ? 'bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+                                : 'bg-red-100 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+                        }`}
+                    >
+                        {submitStatus === 'success' ? (
+                            <CheckCircle className="w-5 h-5 text-green-600" />
+                        ) : (
+                            <X className="w-5 h-5 text-red-600" />
+                        )}
+                        <div>
+                            <p className={`font-medium ${
+                                submitStatus === 'success' ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                            }`}>
+                                {submitStatus === 'success' ? 'Report Submitted Successfully!' : 'Failed to submit report. Please try again.'}
+                            </p>
+                            {submitStatus === 'success' && reportId && (
+                                <p className="text-sm text-green-700 dark:text-green-300 mt-1">
+                                    Your Report ID: <span className="font-mono font-bold">{reportId}</span>
+                                </p>
+                            )}
+                        </div>
+                        <button
+                            onClick={() => setSubmitStatus(null)}
+                            className="ml-auto text-gray-500 hover:text-gray-700"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </motion.div>
+                )}
 
-                {/* Header */}
-                <h2 className="text-xl font-bold text-text text-center">
-                    {t("reportPage.title")}
-                </h2>
-                <p className="text-xs text-text/80 text-center mt-1">
-                    {t("reportPage.heading")}
-                </p>
+                {/* Glassmorphism Form Card */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="backdrop-blur-md bg-white/70 dark:bg-black/50 rounded-2xl border border-white/20 dark:border-gray-700/50 shadow-xl p-8"
+                >
+                    {/* Header */}
+                    <div className="text-center mb-8">
+                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <AlertTriangle className="w-8 h-8 text-white" />
+                        </div>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+                            {t("reportPage.title")}
+                        </h1>
+                        <p className="text-lg text-gray-700">
+                            {t("reportPage.heading")}
+                        </p>
+                    </div>
 
-                <form onSubmit={submitHandler} className="space-y-4 mt-5 text-text">
+                    <form onSubmit={submitHandler} className="space-y-6">
 
                     {/* Name */}
                     <div>
@@ -89,7 +142,7 @@ const Report = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder={t("reportPage.nameValue")}
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-2 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm transition-all duration-200"
                         />
                     </div>
 
@@ -106,7 +159,7 @@ const Report = () => {
                             value={locationInput}
                             onChange={(e) => setLocationInput(e.target.value)}
                             placeholder={t("reportPage.locationValue")}
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-2 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm transition-all duration-200"
                         />
                     </div>
 
@@ -123,7 +176,7 @@ const Report = () => {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder={t("reportPage.phoneValue")}
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-2 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm transition-all duration-200"
                         />
                     </div>
 
@@ -138,7 +191,7 @@ const Report = () => {
                             required
                             value={issue}
                             onChange={(e) => setIssue(e.target.value)}
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-2 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm transition-all duration-200"
                         >
                             <option value="">{t("reportPage.issueValue.choose")}</option>
                             <option value="accident">{t("reportPage.issueValue.accident")}</option>
@@ -164,26 +217,41 @@ const Report = () => {
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder={t("reportPage.descValue")}
                             rows="4"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-bg/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                            className="mt-2 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm transition-all duration-200 resize-none"
                         ></textarea>
                     </div>
 
                     {/* Button */}
-                    <button
+                    <motion.button
                         type="submit"
                         disabled={isSubmitting}
-                        className={`w-full ${isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer'} bg-blue-500 text-white p-3 rounded-lg text-base font-semibold hover:bg-blue-700 active:scale-[0.98] transition`}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`w-full min-h-[48px] bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold transition-all duration-200 ${
+                            isSubmitting ? 'cursor-not-allowed opacity-75' : 'hover:shadow-lg'
+                        }`}
                     >
-                        {isSubmitting ? (<div className="mx-auto rounded-full animate-spin h-5 w-5 border-b-3 border-white-900" />) : t("reportPage.submit")}
-                    </button>
+                        {isSubmitting ? (
+                            <div className="flex items-center justify-center gap-2">
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                Submitting...
+                            </div>
+                        ) : (
+                            <div className="flex items-center justify-center gap-2">
+                                <Send className="w-5 h-5" />
+                                {t("reportPage.submit")}
+                            </div>
+                        )}
+                    </motion.button>
 
-                    {/* Footer safety note */}
-                    <p className="text-[11px] text-text+/80 text-center mt-2">
-                        {t("reportPage.footer")}
-                    </p>
-                </form>
+                        {/* Footer safety note */}
+                        <p className="text-[11px] text-text/80 text-center mt-2">
+                            {t("reportPage.footer")}
+                        </p>
+                    </form>
+                </motion.div>
             </div>
-        </>
+        </div>
     )
 }
 

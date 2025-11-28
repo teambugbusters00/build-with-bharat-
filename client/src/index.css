@@ -8,15 +8,47 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --text: #000000;
-}
-
-.dark{
-  --bg: #121212;
+  --bg: #808080;
   --text: #ffffff;
 }
 
 html {
   transition: background-color .3s, color .3s;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(0,100,0,0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0,100,0,0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0,100,0,0.3) 0%, transparent 50%);
+  animation: treeFloat 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes treeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(10px) rotate(-1deg);
+  }
 }

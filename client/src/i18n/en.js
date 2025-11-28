@@ -6,6 +6,7 @@ const translations = {
         ReportIssue: "Report Issue",
         ServiceProviders: "Service Providers",
         ComplaintTracker: "Complaint Tracker",
+        communityUpdates: "Community Updates",
         profile: "Profile",
         EN: "EN",
         Login: "Login",
@@ -15,7 +16,12 @@ const translations = {
 
     homePage:{
         welcome: "Welcome",
-        msg: "to Gaon Connect"
+        msg: "to Gaon Connect",
+        description: "Empowering rural communities through technology. Report issues, find services, and track progress in real-time.",
+        whyChoose: "Why Choose Gaon Connect?",
+        whyChooseDesc: "A comprehensive platform designed specifically for rural community needs",
+        successStories: "Success Stories from Our Community",
+        successStoriesDesc: "Real stories from villagers who have experienced the impact of Gaon Connect"
     },
 
     reportPage: {
